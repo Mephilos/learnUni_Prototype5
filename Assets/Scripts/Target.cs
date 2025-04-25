@@ -7,9 +7,9 @@ public class Target : MonoBehaviour
 {
     private float maxForce = 16.0f;
     private float minForce = 12.0f;
-    private float randomTorque = 10.0f;
+    private float randomTorque = 6.0f;
     private float randomSpawnPosX = 4.0f;
-    private float spawnPosY = 6.0f;
+    private float spawnPosY = 0.0f;
     private Rigidbody targetRb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,5 +38,13 @@ public class Target : MonoBehaviour
     Vector3 RandomSpawnPos()
     {
         return new Vector3 (Random.Range(-randomSpawnPosX, randomSpawnPosX), spawnPosY);
+    }
+    private void OnMouseDown()
+    {
+        Destroy(gameObject);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
     }
 }
