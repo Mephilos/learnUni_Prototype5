@@ -5,26 +5,21 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-
-
-
 public class GameManager : MonoBehaviour
 {
-    private int score;
+    private int score = 0;
     
     public List<GameObject> targets;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
-    public float spawnRate = 1.0f;
+    public GameObject titleScene;
+    public float spawnRate = 3.0f;
     public bool isGameOver;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
     void Start()
     {
-        isGameOver = false;
-        StartCoroutine(SpawnTargets());
-        score = 0;
     }
 
     // Update is called once per frame
@@ -40,6 +35,15 @@ public class GameManager : MonoBehaviour
             int targetIndex = Random.Range(0, targets.Count);
             Instantiate(targets[targetIndex]);
         }
+    }
+    public void StartGame(int difficulty)
+    {
+        isGameOver = false;
+        StartCoroutine(SpawnTargets());
+        score = 0;
+        UpdateScore(0);
+        titleScene.gameObject.SetActive(false);
+        spawnRate /= difficulty;
     }
     public void UpdateScore(int scoreToAdd)
     {
